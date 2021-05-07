@@ -14,7 +14,13 @@
             <mat-error>Este campo é obrigatório.</mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input formControlName="image" matInput placeholder="Imagem">
+            <!-- <input formControlName="image" matInput placeholder="Imagem"> -->
+              <mat-select formControlName="image" placeholder="Imagem">
+                <!-- <mat-option>Avatar</mat-option> -->
+                <ng-container *ngFor="let element of imgList">
+                  <mat-option><img [src]="element.patch"/></mat-option>
+                </ng-container>
+              </mat-select>        
           </mat-form-field>
           <mat-form-field>
             <input formControlName="why" matInput placeholder="Why">
