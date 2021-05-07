@@ -18,6 +18,7 @@ export class ProjectFormComponent implements OnInit {
   
   courseList :Course[] = [];
   value :number = 0;
+  imgList :any[] = [];
 
   constructor(public service :FormModelService,
               private projectService :ProjectService,
@@ -27,6 +28,7 @@ export class ProjectFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCourses();
+    this.loadListImage();
   }
   
   onClear(){
@@ -87,8 +89,18 @@ export class ProjectFormComponent implements OnInit {
       }
       this.service.form.reset();
       this.service.initializeFormGroup();
-      this.onClose();
-      
+      this.onClose();      
     }
+    
   }
+  
+  loadListImage(){
+    this.imgList = [
+      {id: 1, patch: "./../../src/assets/avatar/001-man-13.png"},
+      {id: 1, patch: "src/assets/avatar/002-woman-14.png"}
+    ];
+    console.log(this.imgList);
+  }
+  
+  
 }
