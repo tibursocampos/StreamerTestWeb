@@ -1,3 +1,4 @@
+import { DialogService } from './../dialog.service';
 import { CourseService } from './../services/course.service';
 import { ProjectFormComponent } from './project-form/project-form.component';
 import { MatDialogConfig } from '@angular/material/dialog';
@@ -8,7 +9,7 @@ import { ResponseService } from './../services/response.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ProjectService } from './../services/project.service';
 import { Project } from './../models/project.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { Course } from '../models/course.model';
 
@@ -24,12 +25,12 @@ export class ProjectComponent implements OnInit{
   displayedColumns :string[] = ['name', 'image', 'why', 'what', 'whatWillWeDo', 'projectStatus', 'course', 'actions'];
   dataSource = new MatTableDataSource<Project>(this.ELEMENG_DATA);
   searchKey!: string;
-  courseId :number = 0;
   
   constructor(private projectService :ProjectService,
               private courseService :CourseService,
               private service :FormModelService,
               private dialog :MatDialog,
+              private dialogService :DialogService,
               private responseService :ResponseService,
               private router :Router,
               private route :ActivatedRoute) { }
@@ -90,6 +91,7 @@ export class ProjectComponent implements OnInit{
     dialogConfig.autoFocus = true;
     dialogConfig.width = "40%";
     this.dialog.open(ProjectFormComponent,dialogConfig);
+    this.dialog.afterAllClosed.subscribe(() => this.loadProjects());
   }
   
   onEdit(project :Project){
@@ -99,21 +101,25 @@ export class ProjectComponent implements OnInit{
     dialogConfig.autoFocus = true;
     dialogConfig.width = "40%";
     this.dialog.open(ProjectFormComponent,dialogConfig);
+    this.dialog.afterAllClosed.subscribe(() => this.loadProjects());
   }
     
   onDelete(id :number){
-    if(confirm('Tem certeza que deseja apagar este projeto ?')){
-      this.projectService.delete(id).subscribe(
-        data => {
-          console.log(data);
-        },
-        error => this.responseService.warn(error),
-        () => {
-          this.responseService.warn('Projeto excluído');
-          this.loadProjects();
+      this.dialogService.openConfirmDialog('Você tem certeza que deseja apagar este projeto ?')
+      .afterClosed().subscribe(response => {
+        if(response){
+          this.projectService.delete(id).subscribe(
+            data => {
+              console.log(data);
+            },
+            error => this.responseService.warn(error),
+            () => {
+              this.responseService.warn('Projeto excluído');
+              this.loadProjects();
+            }
+          )
         }
-      )
-    }
+      })
   } 
     
 }

@@ -17,7 +17,7 @@ import { ProjectStatus } from 'src/app/models/enum/project-status.enum';
 export class ProjectFormComponent implements OnInit {
   
   courseList :Course[] = [];
-  value :string = '';
+  value :number = 0;
 
   constructor(public service :FormModelService,
               private projectService :ProjectService,
@@ -56,13 +56,13 @@ export class ProjectFormComponent implements OnInit {
   getProjects(){
     this.projectService.getAll().subscribe()
   }
+
   
   onSubmit(){
     if(this.service.form.valid){
       const project :Project = this.service.form.value;
       project.courseId = Number(project.courseId);
       let newProject :Project = this.service.populateFormCreate(project);
-      console.log(newProject);
       if(!this.service.form.get('id')?.value){                                                                                                
         this.projectService.create(newProject).subscribe(
           data => {
@@ -88,6 +88,7 @@ export class ProjectFormComponent implements OnInit {
       this.service.form.reset();
       this.service.initializeFormGroup();
       this.onClose();
+      
     }
   }
 }

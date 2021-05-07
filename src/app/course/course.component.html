@@ -1,17 +1,7 @@
 <div class="page-full">
     <div class="page-content">
-        <!-- <mat-table [dataSource]='dataSource' class="mat-elevation-z8">
-            <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef>Curso</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
-            </ng-container>
-            
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="listProjects(row.id)"></mat-row>
-        
-        </mat-table> -->
         <mat-selection-list #course [multiple]="false">
-            <mat-list-option *ngFor="let course of courses" [value]="course.id" (click)="listProjects(course.id)">
+            <mat-list-option *ngFor="let course of courses" [value]="course.id" (click)="listProjects(course.id)" >
               {{course.name}}
             </mat-list-option>
           </mat-selection-list>

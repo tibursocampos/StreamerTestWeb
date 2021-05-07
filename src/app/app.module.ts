@@ -34,6 +34,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ProjectFormComponent } from './project/project-form/project-form.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -41,9 +43,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     CourseComponent,
     ProjectComponent,
     ProjectStatusPipe,
-    ProjectFormComponent
+    ProjectFormComponent,
+    ConfirmDialogComponent
   ],
   imports: [
+    CommonModule,
     MatDialogModule,
     MatSelectModule,
     ReactiveFormsModule,
