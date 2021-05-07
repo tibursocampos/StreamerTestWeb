@@ -1,0 +1,9 @@
+<div class="page-full">
+    <div class="page-content">
+        <mat-selection-list #course [multiple]="false">
+            <mat-list-option *ngFor="let course of courses" [value]="course.id" (click)="listProjects(course.id)" >
+              {{course.name}}
+            </mat-list-option>
+          </mat-selection-list>
+    </div>
+</div>
