@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Project } from 'src/app/models/project.model';
 import { Course } from 'src/app/models/course.model';
-import { ProjectStatus } from 'src/app/models/enum/project-status.enum';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-project-form',
@@ -19,11 +19,15 @@ export class ProjectFormComponent implements OnInit {
   courseList :Course[] = [];
   value :number = 0;
   imgList :any[] = [];
+  courseExist :boolean = false;
+  course !:Course;
+  
 
   constructor(public service :FormModelService,
               private projectService :ProjectService,
               private courseService :CourseService,
               private response :ResponseService,
+              private route: ActivatedRoute,              
               public dialogRef :MatDialogRef<ProjectFormComponent>) { }
 
   ngOnInit(): void {
@@ -46,6 +50,13 @@ export class ProjectFormComponent implements OnInit {
     this.courseService.getAll().subscribe(
       data => {
         this.courseList = data;
+      }
+    )
+  }
+  
+  getCourseById(id :number){
+    this.courseService.getById(id).subscribe(
+      data => {
       }
     )
   }
@@ -96,10 +107,15 @@ export class ProjectFormComponent implements OnInit {
   
   loadListImage(){
     this.imgList = [
-      {id: 1, patch: "./../../src/assets/avatar/001-man-13.png"},
-      {id: 1, patch: "src/assets/avatar/002-woman-14.png"}
+      {id: 1, patch: "../../../assets/avatar/001-man-13.png"},
+      {id: 2, patch: "../../../assets/avatar/002-woman-14.png"},
+      {id: 3, patch: "../../../assets/avatar/003-woman-13.png"},
+      {id: 4, patch: "../../../assets/avatar/004-woman-12.png"},
+      {id: 5, patch: "../../../assets/avatar/003-woman-13.png"},
+      {id: 6, patch: "../../../assets/avatar/014-man-12.png"},
+      {id: 7, patch: "../../../assets/avatar/022-man-4.png"},
+      {id: 8, patch: "../../../assets/avatar/023-man-3.png"},
     ];
-    console.log(this.imgList);
   }
   
   

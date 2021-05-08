@@ -7,20 +7,19 @@
   <form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()">
     <mat-grid-list cols="2" rowHeight="300px">
       <mat-grid-tile>
-        <div class="controles-container">     
+        <div class="controles-container">
           <input type="hidden" formControlName="id">
           <mat-form-field>
             <input formControlName="name" matInput placeholder="Nome do projeto*">
             <mat-error>Este campo é obrigatório.</mat-error>
           </mat-form-field>
           <mat-form-field>
-            <!-- <input formControlName="image" matInput placeholder="Imagem"> -->
+            <input type="image" formControlName="image" matPrefix placeholder="Imagem">
               <mat-select formControlName="image" placeholder="Imagem">
-                <!-- <mat-option>Avatar</mat-option> -->
                 <ng-container *ngFor="let element of imgList">
-                  <mat-option><img [src]="element.patch"/></mat-option>
+                  <mat-option value="{{element.patch}}" ><img class="avatar" [src]="element.patch"/></mat-option>
                 </ng-container>
-              </mat-select>        
+              </mat-select>
           </mat-form-field>
           <mat-form-field>
             <input formControlName="why" matInput placeholder="Why">
@@ -43,13 +42,13 @@
           </div>
           <mat-form-field>
             <mat-select formControlName="courseId" placeholder="Curso">
-              <mat-option>Curso</mat-option>
+              <mat-option *ngIf="courseExist">{{course.name ? course.name : ""}}</mat-option>
               <ng-container *ngFor="let element of courseList">
                 <mat-option value="{{element.id}}">{{element.name}}</mat-option>
               </ng-container>
             </mat-select>
             <mat-error>Este campo é obrigatório.</mat-error>
-          </mat-form-field>         
+          </mat-form-field>
           <div class="button-row">
             <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Salvar</button>
             <button mat-raised-button color="warn" (click)="onClear()">Limpar</button>

@@ -18,5 +18,9 @@ export class CourseService {
     return this.http.get<Course[]>(`${this.baseUrl}`);
   }
   
+  getById(id :number) :Observable<Course>{
+    return this.http.get<Course>(`${this.baseUrl}/${id}`);
+  }
+  
   
 }
