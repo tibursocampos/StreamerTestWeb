@@ -14,7 +14,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .search-div{
     margin: 10px;
-      }
+}
 
 .search-form-field{
     width: 60%;
@@ -141,3 +141,10 @@ mat-radio-group mat-radio-button{
     text-align: center;
     font-size: 20px;
 }
+
+.avatar {
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+  }

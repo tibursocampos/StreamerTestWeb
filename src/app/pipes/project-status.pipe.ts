@@ -5,21 +5,21 @@ import { ProjectStatus } from '../models/enum/project-status.enum';
   name: 'projectStatus'
 })
 export class ProjectStatusPipe implements PipeTransform {
-  
+
   public projectStatusList = ProjectStatus;
-  public projecStatusArray :string[] = [];
+  public projecStatusArray: string[] = [];
 
   transform(value: ProjectStatus, args: any[]) {
-    if(value === undefined || args === undefined){
+    if (value === undefined || args === undefined) {
       return null;
     }
-    
-    for(let index = 0; index < 2; index++){
+
+    for (let index = 0; index < 2; index++) {
       this.projecStatusArray.push(this.projectStatusList[index]);
     }
-    
+
     return this.projecStatusArray[value];
-    
+
   }
 
 }

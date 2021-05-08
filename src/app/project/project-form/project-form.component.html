@@ -1,60 +1,75 @@
-
 <mat-toolbar>
-    <span>{{service.form.controls['id'].value?"Editar Projeto":"Novo Projeto"}}</span>
-    <span class="fill-remaining-space"></span>
-    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
-  </mat-toolbar>
-  <form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()">
-    <mat-grid-list cols="2" rowHeight="300px">
-      <mat-grid-tile>
-        <div class="controles-container">     
-          <input type="hidden" formControlName="id">
+  <span>{{service.form.controls['id'].value?"Editar Projeto":"Novo Projeto"}}</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+<form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()">
+  <mat-grid-list cols="2" rowHeight="300px">
+    <mat-grid-tile>
+      <div class="controles-container">
+        <input type="hidden" formControlName="id">
+        <!-- Name -->
+        <mat-form-field>
+          <input formControlName="name" matInput placeholder="Nome do projeto*">
+          <mat-error>Este campo é obrigatório.</mat-error>
+        </mat-form-field>
+
+        <!-- Image -->
+        <mat-form-field>
+          <img class="avatar" [src]="formSelected.image" *ngIf="formSelected.image" />
+          <mat-select formControlName="image" placeholder="Imagem">
+            <ng-container>
+              <mat-option *ngFor="let element of imgList" value="{{element.patch}}"
+                (click)="changeImage(element.patch)"><img class="avatar" [src]="element.patch" /></mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Why -->
+        <mat-form-field>
+          <input formControlName="why" matInput placeholder="Why">
+        </mat-form-field>
+
+        <!-- What -->
+        <mat-form-field>
+          <input formControlName="what" matInput placeholder="What">
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <div class="controles-container">
+        <div class="add-bottom-padding">
+
+          <!-- What Will We Do -->
           <mat-form-field>
-            <input formControlName="name" matInput placeholder="Nome do projeto*">
-            <mat-error>Este campo é obrigatório.</mat-error>
+            <input formControlName="whatWillWeDo" matInput placeholder="O que faremos">
           </mat-form-field>
-          <mat-form-field>
-            <!-- <input formControlName="image" matInput placeholder="Imagem"> -->
-              <mat-select formControlName="image" placeholder="Imagem">
-                <!-- <mat-option>Avatar</mat-option> -->
-                <ng-container *ngFor="let element of imgList">
-                  <mat-option><img [src]="element.patch"/></mat-option>
-                </ng-container>
-              </mat-select>        
-          </mat-form-field>
-          <mat-form-field>
-            <input formControlName="why" matInput placeholder="Why">
-          </mat-form-field>
-          <mat-form-field>
-            <input formControlName="what" matInput placeholder="What">
-          </mat-form-field>
+
+          <!-- Project Status -->
+          <mat-radio-group formControlName="projectStatus">
+            <mat-radio-button value="0">Em Desenvolvimento</mat-radio-button>
+            <mat-radio-button value="1">Publicado</mat-radio-button>
+          </mat-radio-group>
         </div>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <div class="controles-container">
-          <div class="add-bottom-padding">
-            <mat-form-field>
-                <input formControlName="whatWillWeDo" matInput placeholder="O que faremos">
-              </mat-form-field>
-            <mat-radio-group formControlName="projectStatus">
-              <mat-radio-button value="0">Em Desenvolvimento</mat-radio-button>
-              <mat-radio-button value="1">Publicado</mat-radio-button>
-            </mat-radio-group>
-          </div>
-          <mat-form-field>
-            <mat-select formControlName="courseId" placeholder="Curso">
-              <mat-option>Curso</mat-option>
-              <ng-container *ngFor="let element of courseList">
-                <mat-option value="{{element.id}}">{{element.name}}</mat-option>
-              </ng-container>
-            </mat-select>
-            <mat-error>Este campo é obrigatório.</mat-error>
-          </mat-form-field>         
-          <div class="button-row">
-            <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Salvar</button>
-            <button mat-raised-button color="warn" (click)="onClear()">Limpar</button>
-          </div>
+
+        <!-- Course -->
+        <mat-form-field>
+          <mat-select formControlName="courseId" placeholder="Curso">
+            <ng-container>
+              <mat-option *ngFor="let element of courseList | async" [value]="element.id">{{element.name}}</mat-option>
+            </ng-container>
+          </mat-select>
+          <mat-error>Este campo é obrigatório.</mat-error>
+        </mat-form-field>
+
+        <div class="button-row">
+          <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Salvar</button>
+          <button mat-raised-button color="warn" (click)="onClear()">Limpar</button>
         </div>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </form>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

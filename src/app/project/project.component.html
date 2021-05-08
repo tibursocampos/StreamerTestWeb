@@ -1,82 +1,85 @@
-
 <div class="page-full">
-<div class="search-div">
-  <button mat-raised-button (click)="onCreate()">
-    <mat-icon>add</mat-icon>Novo Projeto
-  </button>
-    <button mat-raised-button [matMenuTriggerFor]="menu">
-    <mat-icon>filter_list</mat-icon>Filtrar por curso
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="loadProjects()">Exibir todos</button>
-    <div *ngFor="let element of courseList"> 
-      <button mat-menu-item (click)="onGetByCourse(element.id)">{{element.name}}</button>
-    </div>
-  </mat-menu>
-  <mat-form-field class="search-form-field" floatLabel="never">
-    <input matInput [(ngModel)]="searchKey" placeholder="Buscar" autocomplete="off" (keyup)="applyFilter()">
-    <button mat-button matSuffix mat-icon-button aria-label="Clear"*ngIf="searchKey"  (click)="onSearchClear()">
-      <mat-icon>close</mat-icon>
+  <div class="search-div">
+    <button mat-raised-button (click)="onCreate()">
+      <mat-icon>add</mat-icon>Novo Projeto
     </button>
-  </mat-form-field>
-</div>
-<div class="page-content">  
-  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-    </ng-container>
-  
-    <!-- Image Column -->
-    <ng-container matColumnDef="image">
-      <mat-header-cell *matHeaderCellDef> Imagem </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.image}} </mat-cell>
-    </ng-container>
-  
-    <!-- Why Column -->
-    <ng-container matColumnDef="why">
-      <mat-header-cell *matHeaderCellDef> Why </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.why}} </mat-cell>
-    </ng-container>
-  
-    <!-- What Column -->
-    <ng-container matColumnDef="what">
-      <mat-header-cell *matHeaderCellDef> What </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.what}} </mat-cell>
-    </ng-container>
-    
-    <!-- What Will We Do Column -->
-    <ng-container matColumnDef="whatWillWeDo">
+    <button mat-raised-button [matMenuTriggerFor]="menu">
+      <mat-icon>filter_list</mat-icon>Filtrar por curso
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="loadProjects()">Exibir todos</button>
+      <div *ngFor="let element of courseList">
+        <button mat-menu-item (click)="onGetByCourse(element.id)">{{element.name}}</button>
+      </div>
+    </mat-menu>
+    <mat-form-field class="search-form-field" floatLabel="never">
+      <input matInput [(ngModel)]="searchKey" placeholder="Buscar" autocomplete="off" (keyup)="applyFilter()">
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="page-content">
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <!-- Image Column -->
+      <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef> Imagem </mat-header-cell>
+        <mat-cell *matCellDef="let element"><img class="avatar" [src]="element.image" *ngIf="element.image" />
+        </mat-cell>
+      </ng-container>
+
+      <!-- Why Column -->
+      <ng-container matColumnDef="why">
+        <mat-header-cell *matHeaderCellDef> Why </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.why}} </mat-cell>
+      </ng-container>
+
+      <!-- What Column -->
+      <ng-container matColumnDef="what">
+        <mat-header-cell *matHeaderCellDef> What </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.what}} </mat-cell>
+      </ng-container>
+
+      <!-- What Will We Do Column -->
+      <ng-container matColumnDef="whatWillWeDo">
         <mat-header-cell *matHeaderCellDef> O que faremos </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.whatWillWeDo}} </mat-cell>
-        </ng-container>
-    
-    <!-- ProjectStatus Column -->
-    <ng-container matColumnDef="projectStatus">
-      <mat-header-cell *matHeaderCellDef> Status do projeto </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.projectStatus | projectStatus: element.projectStatus }} </mat-cell>
       </ng-container>
-          
-    <!-- CourseId Column -->
-    <ng-container matColumnDef="course">
-      <mat-header-cell *matHeaderCellDef> Curso </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.course.name}} </mat-cell>
+
+      <!-- ProjectStatus Column -->
+      <ng-container matColumnDef="projectStatus">
+        <mat-header-cell *matHeaderCellDef> Status do projeto </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.projectStatus | projectStatus: element.projectStatus }}
+        </mat-cell>
       </ng-container>
-    
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <button mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
-        <button mat-icon-button color="warn" (click)="onDelete(row.id)"><mat-icon>delete_outline</mat-icon></button>
-      </mat-cell>
-    </ng-container>
-  
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-</div>
-</div>
 
+      <!-- Course Column -->
+      <ng-container matColumnDef="course">
+        <mat-header-cell *matHeaderCellDef> Curso </mat-header-cell>
+        <mat-cell *matCellDef="let element" value="element.id"> {{element.course.name}} </mat-cell>
+      </ng-container>
 
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button (click)="onEdit(row)">
+            <mat-icon>launch</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="onDelete(row.id)">
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div>

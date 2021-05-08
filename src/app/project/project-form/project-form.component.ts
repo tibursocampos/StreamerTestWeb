@@ -1,4 +1,4 @@
-import { ProjectComponent } from './../project.component';
+import { Observable } from 'rxjs';
 import { CourseService } from './../../services/course.service';
 import { ProjectService } from './../../services/project.service';
 import { ResponseService } from './../../services/response.service';
@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Project } from 'src/app/models/project.model';
 import { Course } from 'src/app/models/course.model';
-import { ProjectStatus } from 'src/app/models/enum/project-status.enum';
 
 @Component({
   selector: 'app-project-form',
@@ -15,60 +14,61 @@ import { ProjectStatus } from 'src/app/models/enum/project-status.enum';
   styleUrls: ['./project-form.component.css']
 })
 export class ProjectFormComponent implements OnInit {
-  
-  courseList :Course[] = [];
-  value :number = 0;
-  imgList :any[] = [];
 
-  constructor(public service :FormModelService,
-              private projectService :ProjectService,
-              private courseService :CourseService,
-              private response :ResponseService,
-              public dialogRef :MatDialogRef<ProjectFormComponent>) { }
+  courseList !: Observable<Course[]>;
+  value: number = 0;
+  imgList: any[] = [];
+  courseExist: boolean = false;
+  course !: Course;
+  formSelected: any;
+
+  constructor(public service: FormModelService,
+    private projectService: ProjectService,
+    private courseService: CourseService,
+    private response: ResponseService,
+    public dialogRef: MatDialogRef<ProjectFormComponent>) { }
 
   ngOnInit(): void {
-    this.getCourses();
+    this.courseList = this.courseService.getAll();
     this.loadListImage();
+    this.getFormSelected();
   }
-  
-  onClear(){
+
+  onClear() {
     this.service.form.reset();
     this.service.initializeFormGroup();
   }
-  
-  onClose(){
+
+  onClose() {
     this.service.form.reset();
     this.service.initializeFormGroup();
     this.dialogRef.close();
-  } 
-  
-  getCourses(){
-    this.courseService.getAll().subscribe(
-      data => {
-        this.courseList = data;
-      }
-    )
   }
-  
-  inputDisabled(){
-    if(!this.service.form.controls['id'].value){
+
+  getFormSelected() {
+    if (this.service.form) {
+      this.formSelected = this.service.form.value;
     }
   }
-  
-  getProjects(){
+
+  getProjects() {
     this.projectService.getAll().subscribe()
   }
 
-  
-  onSubmit(){
-    if(this.service.form.valid){
-      const project :Project = this.service.form.value;
+  changeImage(value: string) {
+    this.formSelected.image = value;
+  }
+
+
+  onSubmit() {
+    if (this.service.form.valid) {
+      const project: Project = this.service.form.value;
       project.courseId = Number(project.courseId);
-      let newProject :Project = this.service.populateFormCreate(project);
-      if(!this.service.form.get('id')?.value){                                                                                                
+      let newProject: Project = this.service.populateFormCreate(project);
+      if (!this.service.form.get('id')?.value) {
         this.projectService.create(newProject).subscribe(
           data => {
-           console.log(data);
+            console.log(data);
           },
           error => console.error(error),
           () => {
@@ -89,18 +89,23 @@ export class ProjectFormComponent implements OnInit {
       }
       this.service.form.reset();
       this.service.initializeFormGroup();
-      this.onClose();      
+      this.onClose();
     }
-    
+
   }
-  
-  loadListImage(){
+
+  loadListImage() {
     this.imgList = [
-      {id: 1, patch: "./../../src/assets/avatar/001-man-13.png"},
-      {id: 1, patch: "src/assets/avatar/002-woman-14.png"}
+      { id: 1, patch: "../../../assets/avatar/002-woman-14.png" },
+      { id: 2, patch: "../../../assets/avatar/003-woman-13.png" },
+      { id: 3, patch: "../../../assets/avatar/004-woman-12.png" },
+      { id: 4, patch: "../../../assets/avatar/008-woman-8.png" },
+      { id: 5, patch: "../../../assets/avatar/001-man-13.png" },
+      { id: 6, patch: "../../../assets/avatar/014-man-12.png" },
+      { id: 7, patch: "../../../assets/avatar/022-man-4.png" },
+      { id: 8, patch: "../../../assets/avatar/023-man-3.png" },
     ];
-    console.log(this.imgList);
   }
-  
-  
+
+
 }

@@ -4,9 +4,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'projects', pathMatch: 'full'},
+  { path: '', redirectTo: 'projects', pathMatch: 'full' },
   { path: 'projects', component: ProjectComponent },
-  { path: 'projects-course/:courseId', component: ProjectComponent },
   { path: 'courses', component: CourseComponent },
 ];
 
