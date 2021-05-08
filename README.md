@@ -1,27 +1,29 @@
-# StreamerTestWeb
+# FRONT-END STREAMER TEST
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.9.
+Este é o desenvolvimento do front-end que consome a API solicitada no teste [STREAMER TEST](https://github.com/jpmendonca/streamertest).
+Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 11.2.9.
 
-## Development server
+Execute o comando `ng serve` para a aplicação rodar em um servidor de desenvolvimento. Navegue até `http: // localhost: 4200 /`. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Execute `ng serve --o` para a aplicação abrir automaticamente no seu navegador padrão.
 
-## Code scaffolding
+## ESTRUTURA DO PROJETO
+**Tela Projetos**
+- Tela inicial da aplicação, mostra uma tabela com os dados de cada projeto.
+- Na parte superior estão os botões para criar um novo projeto, filtar os projetos por curso e um campo de busca por qualquer campo _string_.
+- Em cada projeto (linha da tabela) existem os botões para editar e excluir, ambos levam a um formulário onde são inseridos / editados os dados.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+**Tela Cursos**
+- Foi criada uma tela com uma lista dos cursos.
+- Estes cursos são gerados automaticamente na criação do banco via migration.
+- Ao clicar em algum dos cursos o usuário é redirecionado para tela de projetos.
 
-## Build
+## IMAGENS DO PROJETO
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+![image](https://user-images.githubusercontent.com/37385246/117549467-e7ceff00-b010-11eb-8caf-02d0e8353f97.png)
 
-## Running unit tests
+![image](https://user-images.githubusercontent.com/37385246/117549551-70e63600-b011-11eb-9fb9-672d6ba235a9.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+![image](https://user-images.githubusercontent.com/37385246/117549529-45fbe200-b011-11eb-8a15-7d76926d7b26.png)
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+![image](https://user-images.githubusercontent.com/37385246/117549574-95421280-b011-11eb-9e78-4a1604174bc6.png)
