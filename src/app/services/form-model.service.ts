@@ -1,16 +1,11 @@
-import { ProjectService } from './project.service';
-import { Course } from './../models/course.model';
-import { CourseService } from './course.service';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Project } from '../models/project.model';
-import { data } from 'jquery';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormModelService {
-  
   
   constructor() { }
   
@@ -22,8 +17,7 @@ export class FormModelService {
     what: new FormControl (''),
     whatWillWeDo: new FormControl (''),
     projectStatus: new FormControl ('0'),
-    //course: new FormControl(''),
-    courseId: new FormControl ('')
+    courseId: new FormControl ('', Validators.required)
   });
   
   formCreate: FormGroup = new FormGroup({
@@ -33,7 +27,6 @@ export class FormModelService {
     what: new FormControl (''),
     whatWillWeDo: new FormControl (''),
     projectStatus: new FormControl ('0'),
-    //course: new FormControl(''),
     courseId: new FormControl ('')
   });
   
@@ -46,7 +39,6 @@ export class FormModelService {
       what: '',
       whatWillWeDo: '',
       projectStatus: '0',
-      //course: '',
       courseId: ''
     });
   }
@@ -60,7 +52,6 @@ export class FormModelService {
       what: project.what,
       whatWillWeDo: project.whatWillWeDo,
       projectStatus: project.projectStatus?.toString(),
-      //course: project.course,
       courseId: project.courseId
     });
   }
@@ -73,7 +64,6 @@ export class FormModelService {
       what: project.what,
       whatWillWeDo: project.whatWillWeDo,
       projectStatus: project.projectStatus?.toString(),
-      //course: project.course,
       courseId: project.courseId
     });
     const newProject :Project = this.formCreate.value;

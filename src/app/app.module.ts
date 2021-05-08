@@ -1,11 +1,9 @@
-import { ResponseService } from './services/response.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectService } from './services/project.service';
 import { CourseService } from './services/course.service';
 import { FormModelService } from './services/form-model.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,9 +17,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table'; 
-import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
-import { MatGridListModule} from '@angular/material/grid-list'
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list'
 import { CourseComponent } from './course/course.component';
 import { ProjectComponent } from './project/project.component';
 import { MatSortModule } from '@angular/material/sort';
@@ -59,6 +57,7 @@ import { CommonModule } from '@angular/common';
     LayoutModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     DataTablesModule,
     MatToolbarModule,
     MatButtonModule,
@@ -75,7 +74,7 @@ import { CommonModule } from '@angular/common';
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatGridListModule
-    ],
+  ],
   providers: [FormModelService, CourseService, ProjectService],
   bootstrap: [AppComponent]
 })
